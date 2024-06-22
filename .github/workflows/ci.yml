@@ -71,4 +71,4 @@ jobs:
         run: mvn -f ./pom.xml clean package -DskipTests
 
       - name: Set up Docker Compose
-        run: docker-compose -f docker-compose.yaml up -d
+        run: docker-compose -f docker-compose.yml up -d
