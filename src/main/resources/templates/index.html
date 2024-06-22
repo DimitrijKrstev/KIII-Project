@@ -8,16 +8,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}">
 </head>
 <body>
-<header class="container-fluid m-4">
-    <h1 style="color:white; font-weight: bold; text-shadow:
-                -1px -1px 0 #000,
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                1px 1px 0 #000;
-            filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 2px #000);">Stickies</h1>
-</header>
 <div class="container-fluid d-flex justify-content-center">
     <div style="width: 80vw" class="d-flex flex-wrap flex-row">
+        <header class="container-fluid m-4">
+            <h1 style="font-weight: bold; font-size: 5rem">Stickies</h1>
+        </header>
         <div th:each="note : ${stickyNotes}" class="m-4 shadow" style="background-color: #ffbc00">
             <div style="width: 250px; height: 250px" class="p-3">
                 <h2 th:text="${note.getTitle()}"></h2>
@@ -26,8 +21,8 @@
         </div>
     </div>
 </div>
-<a style="position: absolute; right:20px; bottom:20px; width: 50px; height: 50px; font-size: 20px;"
-   href="/add" class="btn round-button bg-white shadow">
+<a style="position: absolute; right:20px; bottom:20px; width: 50px; height: 50px; font-size: 20px; color: white"
+   href="/add" class="btn round-button bg-dark shadow">
     +
 </a>
 </body>
