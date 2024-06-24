@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: stickies
+spec:
+  serviceName: db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: db
+          image: postgres:13
+          env:
+            # - name: POSTGRES_USER
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postgres-secret
+            #       key: SPRING_DATASOURCE_USERNAME
+            # - name: POSTGRES_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postgres-secret
+            #       key: SPRING_DATASOURCE_PASSWORD
+            - name: POSTGRES_USER
+              value: dimitrius
+            - name: POSTGRES_PASSWORD
+              value: dimi
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: stickies-spring-app-config
+                  key: POSTGRES_DB
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+          livenessProbe:
+            exec:
+              command: [ "pg_isready", "-U", "postgres" ]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-storage
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi

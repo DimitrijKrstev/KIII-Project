@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: stickies
+spec:
+  ports:
+  - port: 5432
+  selector:
+    app: db
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stickies-spring-kiii-app
+  namespace: stickies
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080  # NodePort must be in the range 30000-32767
+  selector:
+    app: stickies-spring-kiii-app
