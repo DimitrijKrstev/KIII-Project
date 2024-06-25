@@ -16,12 +16,18 @@ spec:
     spec:
       containers:
         - name: db
-          image: postgres:latest
+          image: postgres:13-alpine
           env:
             - name: POSTGRES_USER
-              value: dimitrius
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: SPRING_DATASOURCE_USERNAME
             - name: POSTGRES_PASSWORD
-              value: dimi
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: SPRING_DATASOURCE_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
@@ -32,7 +38,7 @@ spec:
               mountPath: /var/lib/postgresql/data
           livenessProbe:
             exec:
-              command: ["pg_isready", "-U", "postgres"]
+              command: ["pg_isready", "-U", "dimitrius", "-d", "sticky-notes-kiii"]
             initialDelaySeconds: 10
             periodSeconds: 10
   volumeClaimTemplates:
