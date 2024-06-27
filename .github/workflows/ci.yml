@@ -38,7 +38,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/sticky-notes-spring-kiii:latest
 
-  check compose:
+  check-compose:
     runs-on: ubuntu-latest
     needs: [build-and-push-backend]
 
