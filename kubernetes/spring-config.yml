@@ -4,7 +4,7 @@ metadata:
   name: stickies-spring-app-config
   namespace: stickies
 data:
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/sticky-notes-kiii"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://citus-coordinator:5432/sticky-notes-kiii"
   SPRING_H2_CONSOLE_ENABLED: "true"
   SPRING_H2_CONSOLE_PATH: "/h2"
   SPRING_JPA_DEFER_DATASOURCE_INITIALIZATION: "true"
